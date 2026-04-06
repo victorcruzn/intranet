@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intranet em Manutenção</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #001f4d, #003366);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+  background: rgba(255,255,255,0.05);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  max-width: 500px;
+  animation: fadeIn 1s ease;
+}
+
+.logo {
+  width: 140px;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+h1 { margin-bottom: 10px; }
+
+p { color: #d1d5db; }
+
+.status {
+  margin: 20px 0;
+  font-weight: bold;
+  color: #fbbf24;
+}
+
+.countdown {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #93c5fd;
+}
+
+.loading {
+  margin: 20px auto;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255,255,255,0.2);
+  border-top: 4px solid #22c55e;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+button {
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover { opacity: 0.9; }
+
+.extra-status {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #cbd5f5;
+}
+
+/* ANIMAÇÕES */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- LOGO -->
+  <img src="logo.png" class="logo">
+
+  <h1>🚧 Intranet PMD</h1>
+
+  <p id="dynamicMessage"></p>
+
+  <div class="status">
+    🔧 Estamos preparando uma nova experiência para você
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading"></div>
+
+  <!-- STATUS DINÂMICO -->
+  <div class="extra-status" id="systemStatus">
+    Verificando status dos sistemas...
+  </div>
+
+  <!-- CONTADOR SUAVE -->
+  <div class="countdown" id="countdown">
+    Atualizações em andamento
+  </div>
+
+  <button onclick="window.location.href='https://victorcruzn.github.io/status-ti'">
+    📊 Ver status completo
+  </button>
+
+</div>
+
+<script>
+
+// 🕒 MENSAGEM DINÂMICA POR HORÁRIO
+function setMessage(){
+  const hour = new Date().getHours();
+  const el = document.getElementById("dynamicMessage");
+
+  if(hour < 12){
+    el.innerText = "Estamos trabalhando para melhorar sua experiência nesta manhã.";
+  } else if(hour < 18){
+    el.innerText = "Estamos trabalhando para melhorar sua experiência nesta tarde.";
+  } else {
+    el.innerText = "Estamos trabalhando para melhorar sua experiência nesta noite.";
+  }
+}
+
+setMessage();
+
+
+// 🔄 STATUS SIMPLES (SIMULAÇÃO + LINK REAL)
+async function checkStatus(){
+  const el = document.getElementById("systemStatus");
+
+  try {
+    // Você pode trocar depois por integração real
+    el.innerText = "🟢 Demais sistemas operacionais";
+  } catch {
+    el.innerText = "⚠️ Não foi possível verificar o status";
+  }
+}
+
+checkStatus();
+
+
+// ⏳ CONTADOR LEVE (SEM COMPROMISSO FIXO)
+function softCountdown(){
+  const el = document.getElementById("countdown");
+
+  const phrases = [
+    "Atualizações em andamento...",
+    "Melhorias sendo aplicadas...",
+    "Estamos quase lá 🚀",
+    "Nova intranet chegando em breve"
+  ];
+
+  let i = 0;
+
+  setInterval(() => {
+    el.innerText = phrases[i];
+    i = (i + 1) % phrases.length;
+  }, 4000);
+}
+
+softCountdown();
+
+</script>
+
+</body>
+</html>
